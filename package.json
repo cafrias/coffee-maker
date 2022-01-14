@@ -1,0 +1,7 @@
+{
+  "name": "@coffee-maker/root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  }
+}
