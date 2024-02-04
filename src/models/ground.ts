@@ -1,10 +1,4 @@
-import {
-  Color3,
-  MeshBuilder,
-  Scene,
-  StandardMaterial,
-  Texture,
-} from "@babylonjs/core";
+import { MeshBuilder, Scene, StandardMaterial, Texture } from "@babylonjs/core";
 
 export class Ground {
   render(scene: Scene) {
