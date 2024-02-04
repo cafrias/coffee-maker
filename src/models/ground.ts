@@ -16,7 +16,7 @@ export class Ground {
 
     const groundMaterial = new StandardMaterial("groundMaterial", scene);
     groundMaterial.diffuseTexture = new Texture("/textures/table/diff.jpg");
-    groundMaterial.ambientTexture = new Texture("/textures/table/nor.jpg");
+    groundMaterial.emissiveTexture = new Texture("/textures/table/nor.jpg");
     groundMaterial.specularTexture = new Texture("/textures/table/rough.jpg");
 
     ground.material = groundMaterial;
