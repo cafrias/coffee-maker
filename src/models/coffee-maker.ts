@@ -1,5 +1,6 @@
 import {
   Color3,
+  PBRMaterial,
   Scene,
   SceneLoader,
   StandardMaterial,
@@ -41,7 +42,23 @@ export class CoffeeMaker {
 
     // const screws = result.meshes[4];
 
-    // const bottle = result.meshes[5];
+    const bottle = result.meshes[5];
+
+    const glass = new PBRMaterial("", scene);
+    // glass.reflectionTexture = hdrTexture;
+    glass.indexOfRefraction = 0.52;
+    glass.alpha = 0.4;
+    // glass.directIntensity = 0.0;
+    glass.directIntensity = 0.3;
+    glass.environmentIntensity = 0.4;
+    glass.cameraExposure = 0.66;
+    glass.cameraContrast = 1.66;
+    glass.microSurface = 1;
+
+    glass.reflectivityColor = new Color3(0.3, 0.3, 0.3);
+    glass.albedoColor = new Color3(0.9, 0.9, 0.9);
+
+    bottle.material = glass;
 
     const bottleBand = result.meshes[6];
     bottleBand.material = bodyMaterial;
