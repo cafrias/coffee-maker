@@ -26,7 +26,7 @@ export class CoffeeMaker {
       mesh.rotate(new Vector3(1, 0, 0), -Math.PI / 2);
       mesh.rotate(new Vector3(0, 0, 1), Math.PI / 2);
 
-      mesh.position.z = -5;
+      mesh.position.z = 0;
     });
 
     const filter = result.meshes[0];
