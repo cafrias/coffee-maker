@@ -22,7 +22,7 @@ export class Mug {
     mug.scaling.x = 0.5;
     mug.scaling.z = 0.5;
 
-    mug.position = new Vector3(0, -0.055, -5);
+    mug.position = new Vector3(0, -0.055, -4);
 
     mug.rotate(new Vector3(0, 1, 0), Math.PI / 4);
 

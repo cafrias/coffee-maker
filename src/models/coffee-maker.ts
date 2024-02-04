@@ -19,9 +19,9 @@ export class CoffeeMaker {
     bodyMaterial.diffuseColor = new Color3(0.31, 0.31, 0.41);
 
     result.meshes.forEach((mesh) => {
-      mesh.scaling.x = 0.15;
-      mesh.scaling.y = 0.15;
-      mesh.scaling.z = 0.15;
+      mesh.scaling.x = 0.1;
+      mesh.scaling.y = 0.1;
+      mesh.scaling.z = 0.1;
 
       mesh.rotate(new Vector3(1, 0, 0), -Math.PI / 2);
       mesh.rotate(new Vector3(0, 0, 1), Math.PI / 2);

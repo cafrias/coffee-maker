@@ -16,7 +16,10 @@ export class Spoon {
     );
 
     result.meshes.forEach((mesh) => {
-      mesh.position.z = 2;
+      mesh.position.z = 1.5;
+      mesh.scaling.x = 0.8;
+      mesh.scaling.y = 0.8;
+      mesh.scaling.z = 0.8;
     });
 
     const spoon = result.meshes[1];

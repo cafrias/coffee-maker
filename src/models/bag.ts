@@ -33,11 +33,11 @@ export class Bag {
 
     mesh.material = bagMaterial;
 
-    mesh.scaling.y = -0.25;
-    mesh.scaling.x = -0.25;
-    mesh.scaling.z = -0.25;
+    mesh.scaling.y = -0.1;
+    mesh.scaling.x = -0.1;
+    mesh.scaling.z = -0.1;
 
-    mesh.position.z = 8;
+    mesh.position.z = 5;
 
     mesh.rotate(new Vector3(1, 0, 0), Math.PI / 2);
     mesh.rotate(new Vector3(0, 0, 1), Math.PI);
