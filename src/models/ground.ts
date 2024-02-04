@@ -1,4 +1,10 @@
-import { Color3, MeshBuilder, Scene, StandardMaterial } from "@babylonjs/core";
+import {
+  Color3,
+  MeshBuilder,
+  Scene,
+  StandardMaterial,
+  Texture,
+} from "@babylonjs/core";
 
 export class Ground {
   render(scene: Scene) {
@@ -9,7 +15,9 @@ export class Ground {
     );
 
     const groundMaterial = new StandardMaterial("groundMaterial", scene);
-    groundMaterial.diffuseColor = Color3.FromHexString("#383838");
+    groundMaterial.diffuseTexture = new Texture("/textures/table/diff.jpg");
+    groundMaterial.ambientTexture = new Texture("/textures/table/nor.jpg");
+    groundMaterial.specularTexture = new Texture("/textures/table/rough.jpg");
 
     ground.material = groundMaterial;
   }
