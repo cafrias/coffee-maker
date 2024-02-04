@@ -1,6 +1,6 @@
 # Blender v2.80 (sub 75) OBJ File: 'teamug.blend'
 # www.blender.org
-mtllib teamug.mtl
+# mtllib teamug.mtl
 o tea_mug_Cylinder
 v 0.484221 0.192995 -0.670329
 v 0.572119 2.142416 -0.792009
