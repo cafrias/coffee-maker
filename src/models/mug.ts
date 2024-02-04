@@ -28,7 +28,7 @@ export class Mug {
     mug.rotate(new Vector3(0, 1, 0), Math.PI / 4);
 
     const mugMaterial = new StandardMaterial("mugMaterial", scene);
-    mugMaterial.diffuseColor = Color3.Red();
+    mugMaterial.diffuseColor = Color3.FromHexString("#FF5E11");
 
     mug.material = mugMaterial;
 

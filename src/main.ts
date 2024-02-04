@@ -6,6 +6,7 @@ import { Mug } from "./models/mug";
 import { Spoon } from "./models/spoon";
 import { Ground } from "./models/ground";
 import { Camera } from "./models/camera";
+import { CoffeeMaker } from "./models/coffee-maker";
 
 async function main() {
   const canvas = document.getElementById("appCanvas");
@@ -26,6 +27,9 @@ async function main() {
 
   const mug = new Mug();
   await mug.render(scene);
+
+  const coffeeMaker = new CoffeeMaker();
+  await coffeeMaker.render(scene);
 
   // Add and manipulate meshes in the scene
   const ground = new Ground();

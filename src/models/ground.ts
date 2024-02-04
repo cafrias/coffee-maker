@@ -12,12 +12,12 @@ export class Ground {
   render(scene: Scene) {
     const ground = MeshBuilder.CreateGround(
       "ground",
-      { height: 12, width: 12, subdivisions: 4 },
+      { height: 25, width: 12, subdivisions: 4 },
       scene
     );
 
     const groundMaterial = new StandardMaterial("groundMaterial", scene);
-    groundMaterial.diffuseColor = Color3.Teal();
+    groundMaterial.diffuseColor = Color3.FromHexString("#383838");
 
     ground.material = groundMaterial;
 

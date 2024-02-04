@@ -12,7 +12,7 @@ export class Camera {
       "Camera",
       0,
       Math.PI / 3,
-      8,
+      24,
       Vector3.Zero(),
       scene
     );
