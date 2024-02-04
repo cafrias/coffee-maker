@@ -1,5 +1,4 @@
 import {
-  AbstractMesh,
   Color3,
   Scene,
   SceneLoader,
@@ -8,7 +7,7 @@ import {
 } from "@babylonjs/core";
 
 export class Mug {
-  private mesh: AbstractMesh | null = null;
+  // private mesh: AbstractMesh | null = null;
 
   async render(scene: Scene) {
     const result = await SceneLoader.ImportMeshAsync(
@@ -31,7 +30,5 @@ export class Mug {
     mugMaterial.diffuseColor = Color3.FromHexString("#FF5E11");
 
     mug.material = mugMaterial;
-
-    this.mesh = mug;
   }
 }

@@ -1,14 +1,6 @@
-import {
-  Color3,
-  GroundMesh,
-  MeshBuilder,
-  Scene,
-  StandardMaterial,
-} from "@babylonjs/core";
+import { Color3, MeshBuilder, Scene, StandardMaterial } from "@babylonjs/core";
 
 export class Ground {
-  private mesh: GroundMesh | null = null;
-
   render(scene: Scene) {
     const ground = MeshBuilder.CreateGround(
       "ground",
@@ -20,7 +12,5 @@ export class Ground {
     groundMaterial.diffuseColor = Color3.FromHexString("#383838");
 
     ground.material = groundMaterial;
-
-    this.mesh = ground;
   }
 }

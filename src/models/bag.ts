@@ -1,5 +1,4 @@
 import {
-  AbstractMesh,
   Color3,
   Scene,
   SceneLoader,
@@ -8,8 +7,6 @@ import {
 } from "@babylonjs/core";
 
 export class Bag {
-  private mesh: AbstractMesh | null = null;
-
   async render(scene: Scene) {
     const result = await SceneLoader.ImportMeshAsync(
       null,
@@ -31,7 +28,5 @@ export class Bag {
     mesh.position.z = 8;
 
     mesh.rotate(new Vector3(1, 0, 0), -Math.PI / 2);
-
-    this.mesh = mesh;
   }
 }

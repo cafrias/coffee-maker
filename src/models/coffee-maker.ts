@@ -35,13 +35,13 @@ export class CoffeeMaker {
     const body = result.meshes[1];
     body.material = bodyMaterial;
 
-    const indicator = result.meshes[2];
+    // const indicator = result.meshes[2];
 
-    const onLight = result.meshes[3];
+    // const onLight = result.meshes[3];
 
-    const screws = result.meshes[4];
+    // const screws = result.meshes[4];
 
-    const bottle = result.meshes[5];
+    // const bottle = result.meshes[5];
 
     const bottleBand = result.meshes[6];
     bottleBand.material = bodyMaterial;
