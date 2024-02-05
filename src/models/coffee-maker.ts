@@ -37,7 +37,19 @@ export class CoffeeMaker {
     const body = result.meshes[1];
     body.material = bodyMaterial;
 
-    // const indicator = result.meshes[2];
+    const indictorGlass = new PBRMaterial("", scene);
+    indictorGlass.indexOfRefraction = 0.12;
+    indictorGlass.alpha = 0.7;
+    indictorGlass.directIntensity = 0.7;
+    indictorGlass.environmentIntensity = 0.4;
+    indictorGlass.cameraExposure = 0.66;
+    indictorGlass.cameraContrast = 1.66;
+    indictorGlass.microSurface = 0.5;
+    indictorGlass.reflectivityColor = new Color3(0.3, 0.3, 0.3);
+    indictorGlass.albedoColor = new Color3(0.9, 0.9, 0.9);
+
+    const indicator = result.meshes[2];
+    indicator.material = indictorGlass;
 
     // const onLight = result.meshes[3];
 
@@ -55,7 +67,6 @@ export class CoffeeMaker {
     glass.cameraExposure = 0.66;
     glass.cameraContrast = 1.66;
     glass.microSurface = 1;
-
     glass.reflectivityColor = new Color3(0.3, 0.3, 0.3);
     glass.albedoColor = new Color3(0.9, 0.9, 0.9);
 
