@@ -15,6 +15,7 @@ export class Spoon {
       "spoon.obj",
       scene
     );
+    result.meshes[1].id = "spoon";
 
     result.meshes.forEach((mesh) => {
       mesh.position.z = 1.5;

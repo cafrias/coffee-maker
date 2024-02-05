@@ -8,6 +8,7 @@ import {
   Vector3,
 } from "@babylonjs/core";
 import { Coffee } from "./coffee";
+import { objectIdentifiers } from "../../common/object-identifiers";
 
 export class CoffeeMaker {
   private coffee: Coffee | null = null;
@@ -26,6 +27,9 @@ export class CoffeeMaker {
       // onLight,
       waterIndicator,
     } = await this.loadModel(scene);
+
+    body.id = objectIdentifiers.coffeeMaker;
+    bottle.flask.id = objectIdentifiers.coffeeMakerBottle;
 
     const bodyMaterial = new StandardMaterial("");
     bodyMaterial.diffuseColor = Color3.FromInts(67, 67, 67);

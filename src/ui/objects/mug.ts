@@ -6,6 +6,7 @@ import {
   Vector3,
 } from "@babylonjs/core";
 import { Coffee } from "./coffee";
+import { objectIdentifiers } from "../../common/object-identifiers";
 
 export class Mug {
   // private mesh: AbstractMesh | null = null;
@@ -19,6 +20,7 @@ export class Mug {
     );
 
     const mug = result.meshes[0];
+    mug.id = objectIdentifiers.mug;
 
     mug.scaling = new Vector3(0.5, 0.5, 0.5);
     mug.position = new Vector3(0, -0.055, -4);

@@ -5,6 +5,7 @@ import {
   Texture,
   Vector3,
 } from "@babylonjs/core";
+import { objectIdentifiers } from "../../common/object-identifiers";
 
 export class Bag {
   async render(scene: Scene) {
@@ -16,6 +17,7 @@ export class Bag {
     );
 
     const mesh = result.meshes[0];
+    mesh.id = objectIdentifiers.coffeeBag;
 
     const bagMaterial = new StandardMaterial("", scene);
     bagMaterial.diffuseTexture = new Texture(
