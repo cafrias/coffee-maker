@@ -1,6 +1,7 @@
-import { AbstractMesh, Vector3 } from "@babylonjs/core";
+import { AbstractMesh, PickingInfo, Vector3 } from "@babylonjs/core";
 import { Camera } from "../camera";
 import { Scene } from "../scene";
+import { PICKABLE_OBJECTS } from "../config";
 
 export interface DndMovement {
   target: AbstractMesh;
@@ -20,7 +21,18 @@ export class DragAndDrop {
     this.movement = null;
   }
 
-  pointerDown(mesh: AbstractMesh) {
+  pick(info: PickingInfo | null) {
+    if (!info || !info.hit || !info.pickedMesh) {
+      return;
+    }
+
+    if (PICKABLE_OBJECTS.includes(info.pickedMesh.id)) {
+      this.pointerDown(info.pickedMesh);
+      return;
+    }
+  }
+
+  private pointerDown(mesh: AbstractMesh) {
     const groundPosition = this.getGroundPosition();
     if (!groundPosition) {
       return;

@@ -21,14 +21,7 @@ export async function initUI(canvas: HTMLCanvasElement) {
   scene.onPointerObservable.add((pointerInfo) => {
     switch (pointerInfo.type) {
       case PointerEventTypes.POINTERDOWN:
-        if (
-          pointerInfo.pickInfo &&
-          pointerInfo.pickInfo.hit &&
-          pointerInfo.pickInfo.pickedMesh &&
-          pointerInfo.pickInfo.pickedMesh.id !== "Plane"
-        ) {
-          dnd.pointerDown(pointerInfo.pickInfo.pickedMesh);
-        }
+        dnd.pick(pointerInfo.pickInfo);
         break;
       case PointerEventTypes.POINTERUP:
         dnd.pointerUp();
