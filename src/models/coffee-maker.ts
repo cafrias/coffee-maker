@@ -1,13 +1,20 @@
 import {
   Color3,
+  MeshBuilder,
   PBRMaterial,
+  PBRMetallicRoughnessMaterial,
   Scene,
   SceneLoader,
   StandardMaterial,
+  TransformNode,
   Vector3,
 } from "@babylonjs/core";
 
 export class CoffeeMaker {
+  private maxCoffeeHeight = 0.6;
+
+  private coffee: TransformNode | null = null;
+
   async render(scene: Scene) {
     const result = await SceneLoader.ImportMeshAsync(
       null,
@@ -56,12 +63,11 @@ export class CoffeeMaker {
     // const screws = result.meshes[4];
 
     const bottle = result.meshes[5];
+    bottle.position.y = 0;
 
     const glass = new PBRMaterial("", scene);
-    // glass.reflectionTexture = hdrTexture;
     glass.indexOfRefraction = 0.52;
     glass.alpha = 0.4;
-    // glass.directIntensity = 0.0;
     glass.directIntensity = 0.3;
     glass.environmentIntensity = 0.4;
     glass.cameraExposure = 0.66;
@@ -77,5 +83,46 @@ export class CoffeeMaker {
 
     const bottleHandle = result.meshes[7];
     bottleHandle.material = bodyMaterial;
+
+    this.createCoffee(scene);
+  }
+
+  private createCoffee(scene: Scene) {
+    const material = new StandardMaterial("", scene);
+    material.diffuseColor = Color3.FromInts(36, 22, 10);
+    material.specularColor = Color3.FromInts(71, 46, 24);
+
+    const coffeeCoT = new TransformNode("coffee_transform");
+    coffeeCoT.position = new Vector3(0, 0, 0);
+
+    const coffee = MeshBuilder.CreateCylinder("coffee", {
+      diameter: 1,
+      height: 1,
+    });
+    coffee.position = new Vector3(0, 0.5, 0);
+    coffee.parent = coffeeCoT;
+    coffee.material = material;
+
+    coffeeCoT.position = new Vector3(-0.25, 0.825, 0);
+    coffeeCoT.scaling = new Vector3(1.75, 0.6, 1.75);
+
+    this.coffee = coffeeCoT;
+  }
+
+  /**
+   * @param height The height in percentage of the coffee in the coffee maker, 0 to 1.
+   */
+  public setCoffeeHeight(height: number) {
+    if (!this.coffee) {
+      throw new Error("Coffee not created");
+    }
+
+    if (height === 0) {
+      this.coffee.setEnabled(false);
+    } else {
+      this.coffee.setEnabled(true);
+    }
+
+    this.coffee.scaling.y = height * this.maxCoffeeHeight;
   }
 }
