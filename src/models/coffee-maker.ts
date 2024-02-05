@@ -66,15 +66,12 @@ export class CoffeeMaker {
     bottle.position.y = 0;
 
     const glass = new PBRMaterial("", scene);
-    glass.indexOfRefraction = 0.52;
-    glass.alpha = 0.4;
-    glass.directIntensity = 0.3;
-    glass.environmentIntensity = 0.4;
-    glass.cameraExposure = 0.66;
-    glass.cameraContrast = 1.66;
+    glass.indexOfRefraction = 1.52;
+    glass.alpha = 0.2;
+    glass.directIntensity = 1;
+    glass.environmentIntensity = 0.1;
     glass.microSurface = 1;
-    glass.reflectivityColor = new Color3(0.3, 0.3, 0.3);
-    glass.albedoColor = new Color3(0.9, 0.9, 0.9);
+    glass.albedoColor = Color3.FromInts(200, 200, 200);
 
     bottle.material = glass;
 
