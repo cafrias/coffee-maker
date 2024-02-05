@@ -9,9 +9,7 @@ export class Ground {
     );
 
     const groundMaterial = new StandardMaterial("groundMaterial", scene);
-    groundMaterial.diffuseTexture = new Texture("/textures/table/diff.jpg");
-    groundMaterial.emissiveTexture = new Texture("/textures/table/nor.jpg");
-    groundMaterial.specularTexture = new Texture("/textures/table/rough.jpg");
+    groundMaterial.diffuseTexture = new Texture("/textures/albedo.png");
 
     ground.material = groundMaterial;
   }

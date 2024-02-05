@@ -1,5 +1,5 @@
 import "./main.css";
-import { Engine, Scene } from "@babylonjs/core";
+import { Color3, Engine, Scene } from "@babylonjs/core";
 
 import "@babylonjs/loaders/OBJ";
 import { Mug } from "./models/mug";
@@ -19,6 +19,13 @@ async function main() {
   const scene = new Scene(engine);
 
   scene.createDefaultLight();
+  const helper = scene.createDefaultEnvironment({
+    createSkybox: false,
+    createGround: false,
+    environmentTexture:
+      "https://playground.babylonjs.com/textures/Studio_Softbox_2Umbrellas_cube_specular.env",
+  });
+  helper?.setMainColor(Color3.White());
 
   const camera = new Camera(canvas as HTMLCanvasElement);
   camera.render(scene);
