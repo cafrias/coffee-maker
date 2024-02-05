@@ -1,31 +1,82 @@
 import {
+  AbstractMesh,
   Color3,
-  MeshBuilder,
   PBRMaterial,
-  PBRMetallicRoughnessMaterial,
   Scene,
   SceneLoader,
   StandardMaterial,
-  TransformNode,
   Vector3,
 } from "@babylonjs/core";
+import { Coffee } from "./coffee";
 
 export class CoffeeMaker {
-  private maxCoffeeHeight = 0.6;
+  private coffee: Coffee | null = null;
 
-  private coffee: TransformNode | null = null;
+  private bottle: {
+    flask: AbstractMesh;
+    band: AbstractMesh;
+    handle: AbstractMesh;
+  } | null = null;
 
   async render(scene: Scene) {
+    const {
+      body,
+      bottle,
+      filter,
+      // onLight,
+      waterIndicator,
+    } = await this.loadModel(scene);
+
+    const bodyMaterial = new StandardMaterial("");
+    bodyMaterial.diffuseColor = Color3.FromInts(67, 67, 67);
+    bodyMaterial.specularColor = Color3.FromInts(96, 108, 154);
+    filter.material = bodyMaterial;
+    body.material = bodyMaterial;
+    bottle.band.material = bodyMaterial;
+    bottle.handle.material = bodyMaterial;
+
+    const indictorGlass = new PBRMaterial("", scene);
+    indictorGlass.indexOfRefraction = 1.52;
+    indictorGlass.alpha = 0.2;
+    indictorGlass.directIntensity = 0.7;
+    indictorGlass.environmentIntensity = 0.2;
+    indictorGlass.microSurface = 0.5;
+    indictorGlass.reflectivityColor = new Color3(0.3, 0.3, 0.3);
+    indictorGlass.albedoColor = new Color3(0.9, 0.9, 0.9);
+    waterIndicator.material = indictorGlass;
+
+    const glass = new PBRMaterial("", scene);
+    glass.indexOfRefraction = 1.52;
+    glass.alpha = 0.2;
+    glass.directIntensity = 1;
+    glass.environmentIntensity = 0.1;
+    glass.microSurface = 1;
+    glass.albedoColor = Color3.FromInts(200, 200, 200);
+    bottle.flask.material = glass;
+
+    this.createCoffee(scene);
+  }
+
+  private createCoffee(scene: Scene) {
+    this.coffee = new Coffee(0.6);
+    this.coffee.render(scene, {
+      name: "coffee_in_maker",
+      diameter: 1.75,
+      position: new Vector3(-0.25, 0.825, 0),
+    });
+  }
+
+  public setCoffeeHeight(height: number) {
+    return this.coffee?.setHeight(height);
+  }
+
+  private async loadModel(scene: Scene) {
     const result = await SceneLoader.ImportMeshAsync(
       null,
       "/models/coffee-maker/",
       "coffee-maker.obj",
       scene
     );
-
-    const bodyMaterial = new StandardMaterial("");
-    bodyMaterial.diffuseColor = Color3.FromInts(67, 67, 67);
-    bodyMaterial.specularColor = Color3.FromInts(96, 108, 154);
 
     result.meshes.forEach((mesh) => {
       mesh.scaling.x = 0.1;
@@ -38,86 +89,18 @@ export class CoffeeMaker {
       mesh.position.z = 0;
     });
 
-    const filter = result.meshes[0];
-    filter.material = bodyMaterial;
+    this.bottle = {
+      flask: result.meshes[5],
+      band: result.meshes[6],
+      handle: result.meshes[7],
+    };
 
-    const body = result.meshes[1];
-    body.material = bodyMaterial;
-
-    const indictorGlass = new PBRMaterial("", scene);
-    indictorGlass.indexOfRefraction = 0.12;
-    indictorGlass.alpha = 0.7;
-    indictorGlass.directIntensity = 0.7;
-    indictorGlass.environmentIntensity = 0.4;
-    indictorGlass.microSurface = 0.5;
-    indictorGlass.reflectivityColor = new Color3(0.3, 0.3, 0.3);
-    indictorGlass.albedoColor = new Color3(0.9, 0.9, 0.9);
-
-    const indicator = result.meshes[2];
-    indicator.material = indictorGlass;
-
-    // const onLight = result.meshes[3];
-
-    // const screws = result.meshes[4];
-
-    const bottle = result.meshes[5];
-    bottle.position.y = 0;
-
-    const glass = new PBRMaterial("", scene);
-    glass.indexOfRefraction = 1.52;
-    glass.alpha = 0.2;
-    glass.directIntensity = 1;
-    glass.environmentIntensity = 0.1;
-    glass.microSurface = 1;
-    glass.albedoColor = Color3.FromInts(200, 200, 200);
-
-    bottle.material = glass;
-
-    const bottleBand = result.meshes[6];
-    bottleBand.material = bodyMaterial;
-
-    const bottleHandle = result.meshes[7];
-    bottleHandle.material = bodyMaterial;
-
-    this.createCoffee(scene);
-  }
-
-  private createCoffee(scene: Scene) {
-    const material = new StandardMaterial("", scene);
-    material.diffuseColor = Color3.FromInts(36, 22, 10);
-    material.specularColor = Color3.FromInts(71, 46, 24);
-
-    const coffeeCoT = new TransformNode("coffee_transform");
-    coffeeCoT.position = new Vector3(0, 0, 0);
-
-    const coffee = MeshBuilder.CreateCylinder("coffee", {
-      diameter: 1,
-      height: 1,
-    });
-    coffee.position = new Vector3(0, 0.5, 0);
-    coffee.parent = coffeeCoT;
-    coffee.material = material;
-
-    coffeeCoT.position = new Vector3(-0.25, 0.825, 0);
-    coffeeCoT.scaling = new Vector3(1.75, 0.6, 1.75);
-
-    this.coffee = coffeeCoT;
-  }
-
-  /**
-   * @param height The height in percentage of the coffee in the coffee maker, 0 to 1.
-   */
-  public setCoffeeHeight(height: number) {
-    if (!this.coffee) {
-      throw new Error("Coffee not created");
-    }
-
-    if (height === 0) {
-      this.coffee.setEnabled(false);
-    } else {
-      this.coffee.setEnabled(true);
-    }
-
-    this.coffee.scaling.y = height * this.maxCoffeeHeight;
+    return {
+      filter: result.meshes[0],
+      body: result.meshes[1],
+      waterIndicator: result.meshes[2],
+      onLight: result.meshes[3],
+      bottle: this.bottle,
+    };
   }
 }

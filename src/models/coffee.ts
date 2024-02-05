@@ -52,7 +52,7 @@ export class Coffee {
   /**
    * @param height The height in percentage of the coffee in the coffee maker, 0 to 1.
    */
-  public setCoffeeHeight(height: number) {
+  public setHeight(height: number) {
     if (!this.node) {
       throw new Error("Coffee not created");
     }
