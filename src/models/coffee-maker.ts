@@ -49,8 +49,6 @@ export class CoffeeMaker {
     indictorGlass.alpha = 0.7;
     indictorGlass.directIntensity = 0.7;
     indictorGlass.environmentIntensity = 0.4;
-    indictorGlass.cameraExposure = 0.66;
-    indictorGlass.cameraContrast = 1.66;
     indictorGlass.microSurface = 0.5;
     indictorGlass.reflectivityColor = new Color3(0.3, 0.3, 0.3);
     indictorGlass.albedoColor = new Color3(0.9, 0.9, 0.9);
