@@ -5,6 +5,7 @@ import {
   StandardMaterial,
   Vector3,
 } from "@babylonjs/core";
+import { Coffee } from "./coffee";
 
 export class Mug {
   // private mesh: AbstractMesh | null = null;
@@ -18,10 +19,9 @@ export class Mug {
     );
 
     const mug = result.meshes[0];
-    mug.scaling.y = 0.5;
-    mug.scaling.x = 0.5;
-    mug.scaling.z = 0.5;
 
+    mug.scaling = new Vector3(0.5, 0.5, 0.5);
+    mug.position = new Vector3(0, -0.055, -4);
     mug.position = new Vector3(0, -0.055, -4);
 
     mug.rotate(new Vector3(0, 1, 0), Math.PI / 4);
@@ -31,5 +31,14 @@ export class Mug {
     mugMaterial.specularColor = Color3.FromHexString("#d99271");
 
     mug.material = mugMaterial;
+
+    const coffee = new Coffee(1.3);
+    coffee.render(scene, {
+      name: "mug_coffee",
+      position: new Vector3(0, 0.2, 0),
+      diameter: 1.8,
+    });
+
+    coffee.getNode().parent = mug;
   }
 }
