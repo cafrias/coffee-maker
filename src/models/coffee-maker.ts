@@ -16,8 +16,9 @@ export class CoffeeMaker {
       scene
     );
 
-    const bodyMaterial = new StandardMaterial("black");
-    bodyMaterial.diffuseColor = new Color3(0.31, 0.31, 0.41);
+    const bodyMaterial = new StandardMaterial("");
+    bodyMaterial.diffuseColor = Color3.FromInts(67, 67, 67);
+    bodyMaterial.specularColor = Color3.FromInts(96, 108, 154);
 
     result.meshes.forEach((mesh) => {
       mesh.scaling.x = 0.1;

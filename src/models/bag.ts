@@ -21,10 +21,11 @@ export class Bag {
     bagMaterial.diffuseTexture = new Texture(
       "/models/bag/textures/kava_low_diffuse.png"
     );
+    // TODO: research how to use this Normal Map
+    // bagMaterial.emissiveTexture = new Texture(
+    //   "/models/bag/textures/kava_low_normal.png"
+    // );
     bagMaterial.emissiveTexture = new Texture(
-      "/models/bag/textures/kava_low_normal.png"
-    );
-    bagMaterial.ambientTexture = new Texture(
       "/models/bag/textures/kava_low_ao.png"
     );
     bagMaterial.specularTexture = new Texture(

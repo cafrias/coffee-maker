@@ -28,6 +28,7 @@ export class Mug {
 
     const mugMaterial = new StandardMaterial("mugMaterial", scene);
     mugMaterial.diffuseColor = Color3.FromHexString("#FF5E11");
+    mugMaterial.specularColor = Color3.FromHexString("#d99271");
 
     mug.material = mugMaterial;
   }
