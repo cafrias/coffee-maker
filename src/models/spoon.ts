@@ -5,6 +5,7 @@ import {
   SceneLoader,
   Vector3,
 } from "@babylonjs/core";
+import { CoffeeBeans } from "./coffee-beans";
 
 export class Spoon {
   async render(scene: Scene) {
@@ -31,5 +32,13 @@ export class Spoon {
     pbr.metallic = 2;
     pbr.roughness = 0.6;
     spoon.material = pbr;
+
+    const beans = new CoffeeBeans(0.15);
+    const beansNode = beans.render(scene, {
+      name: "coffee_beans",
+      position: new Vector3(0, 0.07, -0.6),
+      diameter: 0.38,
+    });
+    beansNode.parent = spoon;
   }
 }
