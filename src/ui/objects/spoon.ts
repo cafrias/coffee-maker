@@ -56,6 +56,6 @@ export class Spoon {
     handle.rotate(new Vector3(0, 1, 0), Math.PI / 2.5);
     handle.scaling = new Vector3(0.8, 0.8, 0.8);
 
-    handle.id = objectIdentifiers.spoon;
+    handle.id = objectIdentifiers.emptySpoon;
   }
 }

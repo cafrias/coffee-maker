@@ -30,7 +30,7 @@ export class CoffeeMaker {
     );
 
     body.id = objectIdentifiers.coffeeMaker;
-    bottle.group.id = objectIdentifiers.coffeeMakerBottle;
+    bottle.group.id = objectIdentifiers.emptyBottle;
 
     const bodyMaterial = new StandardMaterial("");
     bodyMaterial.diffuseColor = Color3.FromInts(67, 67, 67);

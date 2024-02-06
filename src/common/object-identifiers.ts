@@ -1,7 +1,9 @@
 export const objectIdentifiers = {
   coffeeBag: "coffee_bag",
   coffeeMaker: "coffee_maker",
-  coffeeMakerBottle: "coffee_maker_bottle",
-  spoon: "spoon",
+  emptyBottle: "empty_bottle",
+  fullBottle: "full_bottle",
+  emptySpoon: "empty_spoon",
+  fullSpoon: "full_spoon",
   mug: "mug",
 };

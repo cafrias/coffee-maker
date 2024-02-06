@@ -2,8 +2,9 @@ import { Color3 } from "@babylonjs/core";
 import { objectIdentifiers } from "../common/object-identifiers";
 
 export const PICKABLE_OBJECTS = [
-  objectIdentifiers.coffeeMakerBottle,
-  objectIdentifiers.spoon,
+  objectIdentifiers.emptyBottle,
+  objectIdentifiers.emptySpoon,
+  objectIdentifiers.fullSpoon,
 ];
 
-export const DEFAULT_GLOW_COLOR = Color3.Blue();
+export const DEFAULT_HIGHLIGHT_COLOR = Color3.FromInts(3, 144, 252);

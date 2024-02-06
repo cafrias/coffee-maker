@@ -6,7 +6,7 @@ import {
   HighlightLayer,
   Mesh,
 } from "@babylonjs/core";
-import { DEFAULT_GLOW_COLOR } from "./config";
+import { DEFAULT_HIGHLIGHT_COLOR } from "./config";
 import { isDefined } from "../utils/isDefined";
 
 export class Scene extends BabylonScene {
@@ -35,7 +35,11 @@ export class Scene extends BabylonScene {
       .map((id) => this.getMeshById(id))
       .filter(isDefined)
       .forEach((mesh) => {
-        this.hl.addMesh(mesh as Mesh, DEFAULT_GLOW_COLOR);
+        this.hl.addMesh(mesh as Mesh, DEFAULT_HIGHLIGHT_COLOR);
       });
+  }
+
+  clearHighlights() {
+    this.hl.removeAllMeshes();
   }
 }

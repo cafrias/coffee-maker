@@ -2,6 +2,7 @@ import { AbstractMesh, PickingInfo, Vector3 } from "@babylonjs/core";
 import { Camera } from "../camera";
 import { Scene } from "../scene";
 import { PICKABLE_OBJECTS } from "../config";
+import { interactionMap } from "../../common/interaction-map";
 
 export interface DndMovement {
   target: AbstractMesh;
@@ -45,6 +46,8 @@ export class DragAndDrop {
     };
 
     this.camera.detach();
+
+    this.scene.highlightMeshes(interactionMap[mesh.id] || []);
   }
 
   pointerUp() {
@@ -57,6 +60,7 @@ export class DragAndDrop {
     this.camera.attach();
     target.position.copyFrom(initialPoint);
     this.movement = null;
+    this.scene.clearHighlights();
   }
 
   pointerMove() {
