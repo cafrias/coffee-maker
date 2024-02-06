@@ -1,7 +1,17 @@
 import { Inspector } from "@babylonjs/inspector";
-import { Scene as BabylonScene, Color3, Engine } from "@babylonjs/core";
+import {
+  Scene as BabylonScene,
+  Color3,
+  Engine,
+  HighlightLayer,
+  Mesh,
+} from "@babylonjs/core";
+import { DEFAULT_GLOW_COLOR } from "./config";
+import { isDefined } from "../utils/isDefined";
 
 export class Scene extends BabylonScene {
+  private hl: HighlightLayer;
+
   constructor(engine: Engine) {
     super(engine);
 
@@ -14,6 +24,18 @@ export class Scene extends BabylonScene {
     });
     helper?.setMainColor(Color3.White());
 
+    // Add the highlight layer.
+    this.hl = new HighlightLayer("hl1", this);
+
     Inspector.Show(this, {});
+  }
+
+  highlightMeshes(meshes: string[]) {
+    meshes
+      .map((id) => this.getMeshById(id))
+      .filter(isDefined)
+      .forEach((mesh) => {
+        this.hl.addMesh(mesh as Mesh, DEFAULT_GLOW_COLOR);
+      });
   }
 }

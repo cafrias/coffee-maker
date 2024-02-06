@@ -1,4 +1,4 @@
-import { Scene } from "@babylonjs/core";
+import { Scene } from "../scene";
 import { Spoon } from "./spoon";
 import { Mug } from "./mug";
 import { CoffeeMaker } from "./coffee-maker";
