@@ -19,6 +19,7 @@ export class Mug {
 
     const mug = result.meshes[0];
     mug.id = objectIdentifiers.mug;
+    mug.name = objectIdentifiers.mug;
 
     const mugMaterial = new StandardMaterial("mugMaterial", scene);
     mugMaterial.diffuseColor = Color3.FromHexString("#FF5E11");
@@ -35,7 +36,7 @@ export class Mug {
     coffee.setParent(mug);
 
     mug.scaling = new Vector3(0.5, 0.5, 0.5);
-    mug.position = new Vector3(0, -0.055, -4);
+    mug.position = new Vector3(0.22, -0.055, -4);
     mug.rotate(new Vector3(0, 1, 0), Math.PI / 4);
   }
 }
