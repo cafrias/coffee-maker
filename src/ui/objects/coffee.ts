@@ -1,4 +1,5 @@
 import {
+  AbstractMesh,
   Color3,
   MeshBuilder,
   Scene,
@@ -66,10 +67,7 @@ export class Coffee {
     this.node.scaling.y = height * this.maxHeight;
   }
 
-  public getNode() {
-    if (!this.node) {
-      throw new Error("Coffee not rendered");
-    }
-    return this.node;
+  public setParent(parent: AbstractMesh) {
+    this.node?.setParent(parent);
   }
 }

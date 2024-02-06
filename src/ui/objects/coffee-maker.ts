@@ -1,6 +1,7 @@
 import {
   AbstractMesh,
   Color3,
+  MeshBuilder,
   PBRMaterial,
   Scene,
   SceneLoader,
@@ -10,26 +11,26 @@ import {
 import { Coffee } from "./coffee";
 import { objectIdentifiers } from "../../common/object-identifiers";
 
+interface CreateBottleInput {
+  flask: AbstractMesh;
+  band: AbstractMesh;
+  handle: AbstractMesh;
+  coffee: Coffee;
+  scene: Scene;
+}
+
 export class CoffeeMaker {
+  static HEIGHT = 1.5;
+
   private coffee: Coffee | null = null;
 
-  private bottle: {
-    flask: AbstractMesh;
-    band: AbstractMesh;
-    handle: AbstractMesh;
-  } | null = null;
-
   async render(scene: Scene) {
-    const {
-      body,
-      bottle,
-      filter,
-      // onLight,
-      waterIndicator,
-    } = await this.loadModel(scene);
+    const { body, bottle, filter, waterIndicator } = await this.loadModel(
+      scene
+    );
 
     body.id = objectIdentifiers.coffeeMaker;
-    bottle.flask.id = objectIdentifiers.coffeeMakerBottle;
+    bottle.group.id = objectIdentifiers.coffeeMakerBottle;
 
     const bodyMaterial = new StandardMaterial("");
     bodyMaterial.diffuseColor = Color3.FromInts(67, 67, 67);
@@ -57,17 +58,16 @@ export class CoffeeMaker {
     glass.microSurface = 1;
     glass.albedoColor = Color3.FromInts(200, 200, 200);
     bottle.flask.material = glass;
-
-    this.createCoffee(scene);
   }
 
-  private createCoffee(scene: Scene) {
+  private createCoffee(scene: Scene, position: Vector3) {
     this.coffee = new Coffee(0.6);
     this.coffee.render(scene, {
       name: "coffee_in_maker",
       diameter: 1.75,
-      position: new Vector3(-0.25, 0.825, 0),
+      position,
     });
+    return this.coffee;
   }
 
   public setCoffeeHeight(height: number) {
@@ -93,18 +93,62 @@ export class CoffeeMaker {
       mesh.position.z = 0;
     });
 
-    this.bottle = {
-      flask: result.meshes[5],
-      band: result.meshes[6],
-      handle: result.meshes[7],
-    };
+    const bottleMeshPosition = new Vector3(0, -CoffeeMaker.HEIGHT, 0);
+    const flask = result.meshes[5];
+    flask.position = bottleMeshPosition.clone();
+    const band = result.meshes[6];
+    band.position = bottleMeshPosition.clone();
+    const handle = result.meshes[7];
+    handle.position = bottleMeshPosition.clone();
+
+    const coffee = this.createCoffee(
+      scene,
+      new Vector3(-0.25, CoffeeMaker.HEIGHT / -2, 0)
+    );
+
+    const bottle = this.createBottle({
+      band,
+      coffee,
+      flask,
+      handle,
+      scene,
+    });
 
     return {
       filter: result.meshes[0],
       body: result.meshes[1],
       waterIndicator: result.meshes[2],
       onLight: result.meshes[3],
-      bottle: this.bottle,
+      bottle: {
+        group: bottle,
+        flask,
+        band,
+        handle,
+      },
     };
+  }
+
+  private createBottle({
+    band,
+    coffee,
+    flask,
+    handle,
+    scene,
+  }: CreateBottleInput) {
+    const group = MeshBuilder.CreateCylinder("bottle", {
+      diameter: 2.75,
+      height: CoffeeMaker.HEIGHT,
+    });
+    const invisibleMaterial = new StandardMaterial("invisible", scene);
+    invisibleMaterial.alpha = 0;
+    group.material = invisibleMaterial;
+    group.addChild(flask);
+    group.addChild(band);
+    group.addChild(handle);
+    coffee.setParent(group);
+
+    group.position = new Vector3(0, CoffeeMaker.HEIGHT / 2 + 0.75, 0);
+
+    return group;
   }
 }
