@@ -65,10 +65,7 @@ export class CoffeeBeans {
     this.node.scaling.y = height * this.maxHeight;
   }
 
-  public getNode() {
-    if (!this.node) {
-      throw new Error("Coffee not rendered");
-    }
-    return this.node;
+  public setPosition(position: Vector3) {
+    this.node?.position.copyFrom(position);
   }
 }

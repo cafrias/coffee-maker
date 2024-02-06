@@ -1,13 +1,18 @@
 import {
   Color3,
+  MeshBuilder,
   PBRMetallicRoughnessMaterial,
   Scene,
   SceneLoader,
+  StandardMaterial,
   Vector3,
 } from "@babylonjs/core";
 import { CoffeeBeans } from "./coffee-beans";
+import { objectIdentifiers } from "../../common/object-identifiers";
 
 export class Spoon {
+  static HEIGHT = 0.5;
+
   async render(scene: Scene) {
     const result = await SceneLoader.ImportMeshAsync(
       null,
@@ -15,31 +20,42 @@ export class Spoon {
       "spoon.obj",
       scene
     );
-    result.meshes[1].id = "spoon";
+
+    const handle = MeshBuilder.CreateCylinder("spoon_handle", {
+      diameter: 1.5,
+      height: Spoon.HEIGHT,
+    });
+    const handleMaterial = new StandardMaterial("spoon_handle_material", scene);
+    handleMaterial.alpha = 0;
+    handle.material = handleMaterial;
 
     result.meshes.forEach((mesh) => {
-      mesh.position.z = 1.5;
-      mesh.scaling.x = 0.8;
-      mesh.scaling.y = 0.8;
-      mesh.scaling.z = 0.8;
+      handle.addChild(mesh);
     });
 
+    const beans = new CoffeeBeans(0.15);
+    const beansNode = beans.render(scene, {
+      name: "coffee_beans",
+      diameter: 0.38,
+    });
+    beansNode.parent = handle;
+
     const spoon = result.meshes[1];
-
-    spoon.rotate(new Vector3(0, 1, 0), Math.PI / 2);
-
     const pbr = new PBRMetallicRoughnessMaterial("", scene);
     pbr.baseColor = new Color3(0.55, 0.55, 0.55);
     pbr.metallic = 2;
     pbr.roughness = 0.6;
     spoon.material = pbr;
 
-    const beans = new CoffeeBeans(0.15);
-    const beansNode = beans.render(scene, {
-      name: "coffee_beans",
-      position: new Vector3(0, 0.07, -0.6),
-      diameter: 0.38,
+    result.meshes.forEach((mesh) => {
+      mesh.position.y = Spoon.HEIGHT / -2;
     });
-    beansNode.parent = spoon;
+    beans.setPosition(new Vector3(0, Spoon.HEIGHT / -2 + 0.05, -0.55));
+
+    handle.position = new Vector3(0, Spoon.HEIGHT / 2, 2.5);
+    handle.rotate(new Vector3(0, 1, 0), Math.PI / 2.5);
+    handle.scaling = new Vector3(0.8, 0.8, 0.8);
+
+    handle.id = objectIdentifiers.spoon;
   }
 }
