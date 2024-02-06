@@ -1,3 +1,4 @@
+import { Inspector } from "@babylonjs/inspector";
 import { Scene as BabylonScene, Color3, Engine } from "@babylonjs/core";
 
 export class Scene extends BabylonScene {
@@ -12,5 +13,7 @@ export class Scene extends BabylonScene {
         "https://playground.babylonjs.com/textures/Studio_Softbox_2Umbrellas_cube_specular.env",
     });
     helper?.setMainColor(Color3.White());
+
+    Inspector.Show(this, {});
   }
 }
