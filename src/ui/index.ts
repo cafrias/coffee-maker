@@ -14,7 +14,7 @@ export async function initUI(canvas: HTMLCanvasElement) {
 
   await initObjects(scene);
 
-  const ground = new Ground(scene);
+  new Ground(scene);
 
   const dnd = new DragAndDrop(scene, camera);
 
