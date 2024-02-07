@@ -13,6 +13,8 @@ import { objectIdentifiers } from "../../common/object-identifiers";
 export class Spoon {
   static HEIGHT = 0.5;
 
+  private beans: CoffeeBeans | null = null;
+
   async render(scene: Scene) {
     const result = await SceneLoader.ImportMeshAsync(
       null,
@@ -34,10 +36,12 @@ export class Spoon {
     });
 
     const beans = new CoffeeBeans(0.15);
+    this.beans = beans;
     const beansNode = beans.render(scene, {
       name: "coffee_beans",
       diameter: 0.38,
     });
+    beans.setEnabled(false);
     beansNode.parent = handle;
 
     const spoon = result.meshes[1];
@@ -57,5 +61,13 @@ export class Spoon {
     handle.scaling = new Vector3(0.8, 0.8, 0.8);
 
     handle.id = objectIdentifiers.emptySpoon;
+  }
+
+  fill(percent: number) {
+    if (percent === 0) {
+      this.beans?.setEnabled(false);
+    } else {
+      this.beans?.setEnabled(true);
+    }
   }
 }

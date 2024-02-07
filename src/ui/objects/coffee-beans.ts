@@ -68,4 +68,8 @@ export class CoffeeBeans {
   public setPosition(position: Vector3) {
     this.node?.position.copyFrom(position);
   }
+
+  setEnabled(enabled: boolean) {
+    this.node?.setEnabled(enabled);
+  }
 }

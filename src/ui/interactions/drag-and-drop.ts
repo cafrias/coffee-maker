@@ -3,6 +3,7 @@ import { Camera } from "../camera";
 import { Scene } from "../scene";
 import { PICKABLE_OBJECTS } from "../config";
 import { interactionMap } from "../../common/interaction-map";
+import { Bench } from "../../logic/models/bench";
 
 export interface DndMovement {
   target: AbstractMesh;
@@ -12,14 +13,18 @@ export interface DndMovement {
 
 export class DragAndDrop {
   private scene: Scene;
+
   private camera: Camera;
+
+  private bench: Bench;
 
   private movement: DndMovement | null = null;
 
-  constructor(scene: Scene, camera: Camera) {
+  constructor(scene: Scene, camera: Camera, bench: Bench) {
     this.scene = scene;
     this.camera = camera;
     this.movement = null;
+    this.bench = bench;
   }
 
   pick(info: PickingInfo | null) {
@@ -61,6 +66,13 @@ export class DragAndDrop {
     target.position.copyFrom(initialPoint);
     this.movement = null;
     this.scene.clearHighlights();
+
+    const dropId = this.getDropId();
+    if (!dropId) {
+      return;
+    }
+
+    this.bench.onInteraction(target.id, dropId);
   }
 
   pointerMove() {
@@ -89,6 +101,15 @@ export class DragAndDrop {
     );
     if (pickInfo.hit) {
       return pickInfo.pickedPoint;
+    }
+
+    return null;
+  }
+
+  private getDropId() {
+    const pickInfo = this.scene.pick(this.scene.pointerX, this.scene.pointerY);
+    if (pickInfo.hit && pickInfo.pickedMesh) {
+      return pickInfo.pickedMesh.id;
     }
 
     return null;
