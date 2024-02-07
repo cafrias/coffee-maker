@@ -28,4 +28,8 @@ export class Spoon extends Container implements InteractiveObject {
     container.removeSample(toFill);
     this.substance.addSample(toFill);
   }
+
+  empty() {
+    this.substance.empty();
+  }
 }

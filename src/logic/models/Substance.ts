@@ -43,4 +43,8 @@ export class Substance {
       0
     );
   }
+
+  empty() {
+    this.contents.clear();
+  }
 }

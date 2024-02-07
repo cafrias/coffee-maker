@@ -70,4 +70,8 @@ export class Coffee {
   public setParent(parent: AbstractMesh) {
     this.node?.setParent(parent);
   }
+
+  setEnabled(enabled: boolean) {
+    this.node?.setEnabled(enabled);
+  }
 }

@@ -24,6 +24,8 @@ export class CoffeeMaker {
 
   private coffee: Coffee | null = null;
 
+  private bottleHandle: AbstractMesh | null = null;
+
   async render(scene: Scene) {
     const { body, bottle, filter, waterIndicator } = await this.loadModel(
       scene
@@ -31,6 +33,7 @@ export class CoffeeMaker {
 
     body.id = objectIdentifiers.coffeeMaker;
     bottle.group.id = objectIdentifiers.emptyBottle;
+    this.bottleHandle = bottle.group;
 
     const bodyMaterial = new StandardMaterial("");
     bodyMaterial.diffuseColor = Color3.FromInts(67, 67, 67);
@@ -58,6 +61,8 @@ export class CoffeeMaker {
     glass.microSurface = 1;
     glass.albedoColor = Color3.FromInts(200, 200, 200);
     bottle.flask.material = glass;
+
+    this.getCoffee().setEnabled(false);
   }
 
   private createCoffee(scene: Scene, position: Vector3) {
@@ -72,6 +77,37 @@ export class CoffeeMaker {
 
   public setCoffeeHeight(height: number) {
     return this.coffee?.setHeight(height);
+  }
+
+  private getBottleHandle() {
+    if (!this.bottleHandle) {
+      throw new Error("Bottle handle not found");
+    }
+
+    return this.bottleHandle;
+  }
+
+  private getCoffee() {
+    if (!this.coffee) {
+      throw new Error("Coffee not found");
+    }
+
+    return this.coffee;
+  }
+
+  fill(percent: number) {
+    if (percent < 1) {
+      this.getBottleHandle().id = objectIdentifiers.emptyBottle;
+    }
+
+    if (percent === 0) {
+      this.getCoffee().setEnabled(false);
+      return;
+    }
+
+    this.getCoffee().setEnabled(true);
+    this.getCoffee().setHeight(percent);
+    this.getBottleHandle().id = objectIdentifiers.fullBottle;
   }
 
   private async loadModel(scene: Scene) {

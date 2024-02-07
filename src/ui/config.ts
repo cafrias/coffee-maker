@@ -2,7 +2,7 @@ import { Color3 } from "@babylonjs/core";
 import { objectIdentifiers } from "../common/object-identifiers";
 
 export const PICKABLE_OBJECTS = [
-  objectIdentifiers.emptyBottle,
+  objectIdentifiers.fullBottle,
   objectIdentifiers.emptySpoon,
   objectIdentifiers.fullSpoon,
 ];

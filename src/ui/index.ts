@@ -13,7 +13,7 @@ export async function initUI(canvas: HTMLCanvasElement, bench: Bench) {
   const camera = new Camera(canvas);
   camera.render(scene);
 
-  const { spoon } = await initObjects(scene);
+  const { spoon, coffeeMaker } = await initObjects(scene);
 
   new Ground(scene);
 
@@ -38,9 +38,10 @@ export async function initUI(canvas: HTMLCanvasElement, bench: Bench) {
   });
 
   engine.runRenderLoop(() => {
-    const { spoonFill } = bench.tick();
+    const { spoonFill, bottleFill } = bench.tick();
 
     spoon.fill(spoonFill);
+    coffeeMaker.fill(bottleFill);
 
     scene.render();
   });

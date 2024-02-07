@@ -1,4 +1,5 @@
 import {
+  AbstractMesh,
   Color3,
   MeshBuilder,
   PBRMetallicRoughnessMaterial,
@@ -15,6 +16,8 @@ export class Spoon {
 
   private beans: CoffeeBeans | null = null;
 
+  private handle: AbstractMesh | null = null;
+
   async render(scene: Scene) {
     const result = await SceneLoader.ImportMeshAsync(
       null,
@@ -27,6 +30,8 @@ export class Spoon {
       diameter: 1.5,
       height: Spoon.HEIGHT,
     });
+    this.handle = handle;
+
     const handleMaterial = new StandardMaterial("spoon_handle_material", scene);
     handleMaterial.alpha = 0;
     handle.material = handleMaterial;
@@ -66,8 +71,18 @@ export class Spoon {
   fill(percent: number) {
     if (percent === 0) {
       this.beans?.setEnabled(false);
+      this.getHandle().id = objectIdentifiers.emptySpoon;
     } else {
       this.beans?.setEnabled(true);
+      this.getHandle().id = objectIdentifiers.fullSpoon;
     }
+  }
+
+  private getHandle() {
+    if (!this.handle) {
+      throw new Error("Spoon not created");
+    }
+
+    return this.handle;
   }
 }

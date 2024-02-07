@@ -7,6 +7,7 @@ import { CoffeeMaker } from "./instruments/CoffeeMaker";
 
 interface BenchTickResult {
   spoonFill: number;
+  bottleFill: number;
 }
 
 export class Bench {
@@ -21,6 +22,7 @@ export class Bench {
 
     return {
       spoonFill: this.spoon.getFill(),
+      bottleFill: this.bottle.getFill(),
     };
   }
 
@@ -30,6 +32,15 @@ export class Bench {
       to === objectIdentifiers.coffeeBag
     ) {
       this.spoon.fillFrom(this.coffeeBag);
+      return;
+    }
+
+    if (
+      from === objectIdentifiers.fullSpoon &&
+      to === objectIdentifiers.coffeeMaker
+    ) {
+      this.spoon.empty();
+      this.coffeeMaker.setHasCoffee(true);
       return;
     }
   }

@@ -10,6 +10,10 @@ export abstract class Container {
     this.maxCapacity = maxCapacity;
   }
 
+  isFull() {
+    return this.substance.totalAmount() >= this.maxCapacity;
+  }
+
   addSample(sample: Sample): void {
     // TODO: Validate that the max capacity is not exceeded
     this.substance.addSample(sample);
@@ -21,5 +25,9 @@ export abstract class Container {
 
   getFill(): number {
     return this.substance.totalAmount() / this.maxCapacity;
+  }
+
+  empty() {
+    this.substance.empty();
   }
 }
