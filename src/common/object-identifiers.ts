@@ -5,5 +5,6 @@ export const objectIdentifiers = {
   fullBottle: "full_bottle",
   emptySpoon: "empty_spoon",
   fullSpoon: "full_spoon",
-  mug: "mug",
+  emptyMug: "empty_mug",
+  fullMug: "full_mug",
 };

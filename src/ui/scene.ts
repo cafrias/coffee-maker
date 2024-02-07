@@ -1,4 +1,4 @@
-import { Inspector } from "@babylonjs/inspector";
+// import { Inspector } from "@babylonjs/inspector";
 import {
   Scene as BabylonScene,
   Color3,
@@ -27,7 +27,7 @@ export class Scene extends BabylonScene {
     // Add the highlight layer.
     this.hl = new HighlightLayer("hl1", this);
 
-    Inspector.Show(this, {});
+    // Inspector.Show(this, {});
   }
 
   highlightMeshes(meshes: string[]) {

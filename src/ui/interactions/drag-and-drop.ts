@@ -60,6 +60,8 @@ export class DragAndDrop {
       return;
     }
 
+    const dropId = this.getDropId();
+
     const { initialPoint, target } = this.movement;
 
     this.camera.attach();
@@ -67,7 +69,6 @@ export class DragAndDrop {
     this.movement = null;
     this.scene.clearHighlights();
 
-    const dropId = this.getDropId();
     if (!dropId) {
       return;
     }
@@ -107,7 +108,13 @@ export class DragAndDrop {
   }
 
   private getDropId() {
-    const pickInfo = this.scene.pick(this.scene.pointerX, this.scene.pointerY);
+    const pickInfo = this.scene.pick(
+      this.scene.pointerX,
+      this.scene.pointerY,
+      (mesh) => {
+        return mesh.isPickable && mesh.id !== this.movement?.target.id;
+      }
+    );
     if (pickInfo.hit && pickInfo.pickedMesh) {
       return pickInfo.pickedMesh.id;
     }

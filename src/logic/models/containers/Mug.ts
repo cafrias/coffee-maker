@@ -1,9 +1,9 @@
-import { objectIdentifiers } from "../../../common/object-identifiers";
-import { InteractiveObject } from "../InteractiveObject";
 import { Container } from "./Container";
 
-export class Mug extends Container implements InteractiveObject {
-  getIdentifier(): string {
-    return objectIdentifiers.mug;
+export class Mug extends Container {
+  static MAX_CAPACITY = 1;
+
+  constructor() {
+    super(Mug.MAX_CAPACITY);
   }
 }

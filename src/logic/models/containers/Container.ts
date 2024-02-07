@@ -30,4 +30,10 @@ export abstract class Container {
   empty() {
     this.substance.empty();
   }
+
+  transferTo(container: Container, sample: Sample) {
+    // TODO: validate this is possible
+    container.addSample(sample);
+    this.removeSample(sample);
+  }
 }

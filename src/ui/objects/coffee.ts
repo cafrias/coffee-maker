@@ -38,6 +38,7 @@ export class Coffee {
       diameter,
       height: 1,
     });
+    coffee.isPickable = false;
     coffee.position = new Vector3(0, 0.5, 0);
     coffee.parent = coffeeCoT;
     coffee.material = material;

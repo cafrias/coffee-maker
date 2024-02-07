@@ -98,6 +98,9 @@ export class CoffeeMaker {
   fill(percent: number) {
     if (percent < 1) {
       this.getBottleHandle().id = objectIdentifiers.emptyBottle;
+    } else {
+      console.log("Bottle is full");
+      this.getBottleHandle().id = objectIdentifiers.fullBottle;
     }
 
     if (percent === 0) {
@@ -107,7 +110,6 @@ export class CoffeeMaker {
 
     this.getCoffee().setEnabled(true);
     this.getCoffee().setHeight(percent);
-    this.getBottleHandle().id = objectIdentifiers.fullBottle;
   }
 
   private async loadModel(scene: Scene) {
@@ -184,6 +186,10 @@ export class CoffeeMaker {
     coffee.setParent(group);
 
     group.position = new Vector3(0, CoffeeMaker.HEIGHT / 2 + 0.75, 0);
+
+    [flask, band, handle].forEach((mesh) => {
+      mesh.isPickable = false;
+    });
 
     return group;
   }

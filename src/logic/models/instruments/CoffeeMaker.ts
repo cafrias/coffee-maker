@@ -1,12 +1,11 @@
 import { objectIdentifiers } from "../../../common/object-identifiers";
 import { Coffee } from "../../materials/Coffee";
-import { InteractiveObject } from "../InteractiveObject";
 import { MatterState } from "../MatterState";
 import { Sample } from "../Sample";
 import { Tickable } from "../Tickable";
 import { CoffeeMakerBottle } from "../containers/CoffeeMakerBottle";
 
-export class CoffeeMaker implements InteractiveObject, Tickable {
+export class CoffeeMaker implements Tickable {
   static COFFEE_CREATION_CONSTANT = 0.01;
 
   private bottle: CoffeeMakerBottle;

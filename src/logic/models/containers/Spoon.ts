@@ -1,11 +1,10 @@
 import { objectIdentifiers } from "../../../common/object-identifiers";
 import { CoffeeBean } from "../../materials/CoffeeBean";
-import { InteractiveObject } from "../InteractiveObject";
 import { MatterState } from "../MatterState";
 import { Sample } from "../Sample";
 import { Container } from "./Container";
 
-export class Spoon extends Container implements InteractiveObject {
+export class Spoon extends Container {
   static MAX_CAPACITY = 1;
 
   constructor() {
